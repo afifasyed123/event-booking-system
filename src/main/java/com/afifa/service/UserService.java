@@ -53,4 +53,5 @@ public User updateUser(Long id,User updatedUser){
         );
         return new UserDTO(user.getId(), user.getName(), user.getEmail());
     }
+
 }

@@ -30,6 +30,7 @@ Thumbs.db
 .env
 application-local.properties
 application-local.yml
+
 ### Eclipse ###
 .apt_generated
 .classpath
@@ -54,3 +55,4 @@ build/
 
 ### Mac OS ###
 .DS_Store
+.env
