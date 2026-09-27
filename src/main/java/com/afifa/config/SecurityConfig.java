@@ -1,5 +1,8 @@
 package com.afifa.config;
-
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import java.util.List;
 import com.afifa.security.JwtAuthenticationFilter;
 import com.afifa.service.CustomUserDetailsService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -34,6 +37,7 @@ public class SecurityConfig {
 
         http
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(cors -> {})
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/users/**", "/auth/**").permitAll()
                         .requestMatchers(
@@ -78,5 +82,22 @@ public class SecurityConfig {
         provider.setPasswordEncoder(passwordEncoder());
 
         return new ProviderManager(provider);
+    }
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.setAllowedOrigins(List.of("*"));
+        configuration.setAllowedMethods(List.of(
+                "GET", "POST", "PUT", "DELETE", "OPTIONS"
+        ));
+        configuration.setAllowedHeaders(List.of("*"));
+
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
+
+        source.registerCorsConfiguration("/**", configuration);
+
+        return source;
     }
 }

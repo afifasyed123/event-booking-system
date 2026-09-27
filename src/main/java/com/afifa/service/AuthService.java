@@ -20,8 +20,11 @@ public class AuthService {
     }
     public String login(LoginRequestDTO request){
        UsernamePasswordAuthenticationToken token= new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword());
+        System.out.println("AUTHENTICATING: " + request.getEmail());
 
-       manager.authenticate(token);
+        manager.authenticate(token);
+
+        System.out.println("AUTHENTICATION SUCCESS");
         User user = repository.findByEmail(request.getEmail())
                 .orElseThrow(()-> new UserNotFoundException("User not found")
                 );
