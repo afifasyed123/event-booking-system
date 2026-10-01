@@ -30,17 +30,17 @@ public class UserService {
     public List<User> getAllUsers(){
         return repository.findAll();
 }
-public User updateUser(Long id,User updatedUser){
+    public User updateUser(Long id, User updatedUser) {
         User user = repository.findById(id).orElseThrow(
-                ()-> new UserNotFoundException("User not found")
+                () -> new UserNotFoundException("User not found")
         );
         user.setEmail(updatedUser.getEmail());
-        user.setId(updatedUser.getId());
-        user.setBookings(updatedUser.getBookings());
         user.setName(updatedUser.getName());
-        user.setPassword(updatedUser.getPassword());
-        return repository.save(updatedUser);
-}
+        if (updatedUser.getPassword() != null && !updatedUser.getPassword().isBlank()) {
+            user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+        }
+        return repository.save(user);
+    }
     public void deleteUser(Long id) {
         User user = repository.findById(id).orElseThrow(
                 ()-> new UserNotFoundException("User not found")
