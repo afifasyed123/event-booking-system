@@ -169,7 +169,7 @@ http://localhost:8080/swagger-ui/index.html
 ### 1. Clone the repository
 
 ```bash
-git clone <your-github-repository-url>
+git clone https://github.com/afifasyed123/event-booking-system.git
 cd event-booking-system
 ```
 
